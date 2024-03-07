@@ -11,6 +11,7 @@ class Ship():
 
         self.rect.centerx = self.screen_rect.centerx
         self.rect.bottom = self.screen_rect.bottom
+        self.center = float(self.rect.centerx)
 
         self.moving_left = False
         self.moving_right = False
@@ -21,7 +22,11 @@ class Ship():
         self.screen.blit(self.image,self.rect)
 
     def update(self):
-        if self.moving_left and self.rect.x > 0: 
-            self.rect.centerx -= self.ship_speed
-        if self.moving_right and self.rect.x < 1449:
-            self.rect.centerx += self.ship_speed
+        if self.moving_left and self.rect.left > 0: 
+            self.center -= self.ship_speed
+        
+        if self.moving_right and self.rect.right < self.screen_rect.right:
+            self.center += self.ship_speed    
+        
+        self.rect.centerx = self.center
+    
