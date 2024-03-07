@@ -12,9 +12,13 @@ def run_game():
 
     shipObject = ship.Ship(screen)
 
+    bullets = pygame.sprite.Group()
+
     while True:
-        gf.check_events(shipObject)
+        gf.check_events(shipObject,bullets,setting,screen)
         shipObject.update()
-        gf.update_screen(setting,screen,shipObject)
+        bullets.update()
+        gf.delete_bullets(bullets)
+        gf.update_screen(setting,screen,shipObject,bullets)
 
 run_game()
