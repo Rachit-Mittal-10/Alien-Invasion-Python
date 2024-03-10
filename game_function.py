@@ -51,3 +51,7 @@ def delete_bullets(bullets):
 def fire_bullets(bullets,screen,settings,shipObject):
     new_bullet = Bullet(screen,settings,shipObject)
     bullets.add(new_bullet)
+
+def update_bullets_screen(bullets):
+    bullets.update()
+    delete_bullets(bullets)
