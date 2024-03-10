@@ -33,6 +33,8 @@ def check_keydown_events(event,shipObject,settings,screen,bullets):
         shipObject.moving_left = True
     elif event.key == pygame.K_SPACE:
         fire_bullets(bullets,screen,settings,shipObject)
+    elif event.key == pygame.K_q:
+        sys.exit()
 
 def check_keyup_events(event,shipObject,setting,screen,bullets):
     """Respond to Key Releases"""
