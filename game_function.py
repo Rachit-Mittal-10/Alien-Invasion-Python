@@ -62,10 +62,19 @@ def fire_bullets(bullets,screen,settings,shipObject):
     new_bullet = Bullet(screen,settings,shipObject)
     bullets.add(new_bullet)
 
+def check_bullet_collision(aliens,bullets,settings,screen,shipObject):
+    "Checks the bullet collision."
+    if len(aliens) == 0:
+        bullets.empty()
+        create_fleet(settings,screen,aliens,shipObject)
 
-def update_bullets_screen(bullets):
+def update_bullets_screen(bullets,aliens,settings,screen,shipObject):
+    """Delete the bullets on the screen either collided or went out of screen"""
     bullets.update()
     delete_bullets(bullets)
+    collisions = pygame.sprite.groupcollide(bullets,aliens,True, True)
+    check_bullet_collision(aliens,bullets,settings,screen,shipObject)
+    
 
 def get_number_aliens(settings,alien_width):
     """Gets the number of aliens possible in the row"""
@@ -83,7 +92,7 @@ def create_alien(settings,screen,aliens,alien_number,row_number):
     aliens.add(alien)
 
 def get_number_rows(settings,alien_height,ship_height):
-    available_space_y = settings.height - 3*alien_height - ship_height
+    available_space_y = settings.height - 13*alien_height - ship_height
     number_rows = int(available_space_y/(2*alien_height))
     return number_rows
 
@@ -100,10 +109,12 @@ def create_fleet(settings,screen,aliens,shipObject):
         for alien_number in range(number_aliens_x):
             create_alien(settings,screen,aliens,alien_number,row_number)
 
-def update_aliens(settings,aliens):
+def update_aliens(settings,aliens,shipObject):
     """Update the position of all the alien in the fleet"""
     check_fleet_edges(settings,aliens)
     aliens.update()
+    if pygame.sprite.spritecollideany(shipObject,aliens):
+        print("Ship Hit!!!")
 
 def check_fleet_edges(settings,aliens):
     """Respond appropriately if any aliens have reached an edge."""

@@ -8,9 +8,9 @@ class Settings():
         self.height = 900
         
         #Bullet Settings
-        self.bullet_speed_factor = 0.75
-        self.bullet_width = 3
-        self.bullet_height = 10
+        self.bullet_speed_factor = 5
+        self.bullet_width = 1000
+        self.bullet_height = 20
         self.bullet_color = (60,60,60)
         
         # Alien Settings
