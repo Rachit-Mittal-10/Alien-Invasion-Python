@@ -68,22 +68,52 @@ def update_bullets_screen(bullets):
     delete_bullets(bullets)
 
 def get_number_aliens(settings,alien_width):
+    """Gets the number of aliens possible in the row"""
     available_space_x = settings.width - 2*alien_width
     number_aliens_x = int(available_space_x/(2*alien_width))
     return number_aliens_x
 
-def create_alien(settings,screen,aliens,alien_number):
+def create_alien(settings,screen,aliens,alien_number,row_number):
+    """Creates the alien and adds to the group"""
     alien = Alien(settings,screen)
     alien_width = alien.rect.width
     alien.x = alien_width + 2*alien_width*alien_number
     alien.rect.x = alien.x
+    alien.rect.y = alien.rect.height + 2*alien.rect.height*row_number
     aliens.add(alien)
 
-def create_fleet(settings,screen,aliens):
+def get_number_rows(settings,alien_height,ship_height):
+    available_space_y = settings.height - 3*alien_height - ship_height
+    number_rows = int(available_space_y/(2*alien_height))
+    return number_rows
+
+def create_fleet(settings,screen,aliens,shipObject):
     """Create the full fleet of aliens."""
     alienObject = Alien(settings,screen)
     alien_width = alienObject.rect.width
+    alien_height = alienObject.rect.height
+    ship_height = shipObject.rect.height
     number_aliens_x = get_number_aliens(settings,alien_width)
+    number_rows = get_number_rows(settings,alien_height,ship_height)
 
-    for alien_number in range(number_aliens_x):
-        create_alien(settings,screen,aliens,alien_number)
+    for row_number in range(number_rows):
+        for alien_number in range(number_aliens_x):
+            create_alien(settings,screen,aliens,alien_number,row_number)
+
+def update_aliens(settings,aliens):
+    """Update the position of all the alien in the fleet"""
+    check_fleet_edges(settings,aliens)
+    aliens.update()
+
+def check_fleet_edges(settings,aliens):
+    """Respond appropriately if any aliens have reached an edge."""
+    for alien in aliens.sprites():
+        if alien.check_edges():
+            change_fleet_direction(settings,aliens)
+            break
+
+def change_fleet_direction(settings,aliens):
+    """Drop the entire fleet and change direction of fleet."""
+    for alien in aliens.sprites():
+        alien.rect.y += settings.fleet_drop_speed
+    settings.fleet_direction *= -1
