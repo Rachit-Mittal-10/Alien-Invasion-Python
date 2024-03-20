@@ -13,7 +13,7 @@ def run_game():
     pygame.display.set_caption("Alien Invasion")
     
     play_button = button.Button(setting,screen,"Play")
-    shipObject = ship.Ship(screen)
+    shipObject = ship.Ship(screen,setting)
     bullets = pygame.sprite.Group()
     aliens = pygame.sprite.Group()
     stat = gs.Game_Stat(setting) 

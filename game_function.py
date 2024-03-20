@@ -75,6 +75,7 @@ def check_bullet_collision(aliens,bullets,settings,screen,shipObject):
     "Checks the bullet collision."
     if len(aliens) == 0:
         bullets.empty()
+        settings.increase_speed()
         create_fleet(settings,screen,aliens,shipObject)
 
 
@@ -153,6 +154,7 @@ def ship_hit(settings,stat,screen,shipObjet,aliens,bullets):
         stat.ship_left -= 1
         aliens.empty()
         bullets.empty()
+        settings.decrease_speed()
         create_fleet(settings,screen,aliens,shipObjet)
         shipObjet.center_ship()
         sleep(1)
@@ -173,7 +175,9 @@ def check_play_button(stat,play_button,mouse_x,mouse_y,settings,screen,shipObjec
     """Start the New Game when Player clicks the play."""
     button_clicked = play_button.rect.collidepoint(mouse_x,mouse_y)
     if button_clicked and not stat.game_active:
+        settings.initialise_dynamic_settings()
         start_game(stat,settings,screen,shipObject,aliens,bullets)
+        pygame.mouse.set_visible(False)
 
 
 def start_game(stat,settings,screen,shipObject,aliens,bullets):
