@@ -29,4 +29,9 @@ class Ship():
             self.center += self.ship_speed    
         
         self.rect.centerx = self.center
+
+    def center_ship(self):
+        """Centers the ship.."""
+        self.rect.centerx = self.screen_rect.centerx
+        self.rect.bottom = self.screen_rect.bottom
     

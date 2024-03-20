@@ -9,14 +9,17 @@ class Settings():
         
         #Bullet Settings
         self.bullet_speed_factor = 5
-        self.bullet_width = 1000
-        self.bullet_height = 20
+        self.bullet_width = 10
+        self.bullet_height = 25
         self.bullet_color = (60,60,60)
         
         # Alien Settings
         self.alien_speed_factor = 0.9
         self.fleet_drop_speed = 10
         self.fleet_direction  = 1
+
+        #Ship Setting
+        self.ship_limit = 3
 
     def getSize(self):
         return (self.width,self.height)
