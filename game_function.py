@@ -38,7 +38,9 @@ def update_screen(setting,screen,ship,bullets,aliens,stat,play_button):
 
 def check_keydown_events(event,shipObject,settings,screen,bullets,stats,aliens):
     """Respond to Key Presses"""
-    if event.key == pygame.K_RIGHT:
+    if stats.game_active == False and event.key in (pygame.K_p, pygame.K_RETURN, pygame.K_SPACE):
+        start_game(stats,settings,screen,shipObject,aliens,bullets)
+    elif event.key == pygame.K_RIGHT:
         shipObject.moving_right = True
     elif event.key == pygame.K_LEFT:
         shipObject.moving_left = True
@@ -46,8 +48,7 @@ def check_keydown_events(event,shipObject,settings,screen,bullets,stats,aliens):
         fire_bullets(bullets,screen,settings,shipObject)
     elif event.key == pygame.K_q:
         sys.exit()
-    elif stats.game_active == False and event.key in (pygame.K_p, pygame.K_RETURN, pygame.K_SPACE):
-        start_game(stats,settings,screen,shipObject,aliens,bullets)
+    
 
 
 def check_keyup_events(event,shipObject,setting,screen,bullets):
