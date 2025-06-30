@@ -46,7 +46,7 @@ def check_keydown_events(event,shipObject,settings,screen,bullets,stats,aliens):
         fire_bullets(bullets,screen,settings,shipObject)
     elif event.key == pygame.K_q:
         sys.exit()
-    elif event.key == pygame.K_p:
+    elif stats.game_active == False and event.key in (pygame.K_p, pygame.K_RETURN, pygame.K_SPACE):
         start_game(stats,settings,screen,shipObject,aliens,bullets)
 
 
