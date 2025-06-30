@@ -1,11 +1,13 @@
+import pygame
+
 class Settings():
     """Class to store settings of multiple components"""
     def __init__(self):
         """Initialise the statis settings for game."""
         # Screen Settings
         self.bg_color = (230,230,230)
-        self.width = 1500
-        self.height = 900
+        self.width = pygame.display.Info().current_w
+        self.height = pygame.display.Info().current_h
         
         #Bullet Settings
         self.bullet_width = 10
